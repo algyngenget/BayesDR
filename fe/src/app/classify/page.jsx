@@ -16,7 +16,40 @@ import {
   BarChart3,
   BrainCircuit,
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Cell,
+  CartesianGrid,
+} from "recharts";
 import useClassifyStore from "@/services/store";
+
+const CLASS_BAR_COLORS = [
+  "#10b981", // No DR
+  "#f59e0b", // Mild
+  "#f97316", // Moderate
+  "#ef4444", // Severe
+  "#e11d48", // Proliferate DR
+];
+
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="rounded-xl border border-(--color-border) bg-(--color-surface) p-3 shadow-xl backdrop-blur-md">
+        <p className={`text-xs font-bold ${data.textColor}`}>{data.name}</p>
+        <p className="text-base font-extrabold text-(--color-text-primary)">
+          {data.percentage}%
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function ClassifyPage() {
   const {
@@ -34,6 +67,13 @@ export default function ClassifyPage() {
   const fileInputRef = useRef(null);
   const resultSectionRef = useRef(null);
   const imageSectionRef = useRef(null);
+
+  const chartData = result?.probabilities?.map((prob, idx) => ({
+    name: DR_CLASSES[idx]?.label || `Class ${idx}`,
+    percentage: Number((prob * 100).toFixed(1)),
+    color: CLASS_BAR_COLORS[idx] || "#0d9488",
+    textColor: DR_CLASSES[idx]?.textColor || "text-(--color-text-primary)",
+  }));
 
   // Auto-scroll ke hasil ketika result berubah
   useEffect(() => {
@@ -479,26 +519,70 @@ export default function ClassifyPage() {
                     </span>
                   </div>
 
-                  <div className="space-y-3.5">
-                    {result.probabilities?.map((prob, idx) => (
-                      <div key={idx} className="space-y-1">
-                        <div className="flex items-center justify-between text-xs font-bold">
-                          <span className={DR_CLASSES[idx].textColor}>
-                            {DR_CLASSES[idx].label}
-                          </span>
-                          <span className="text-(--color-text-secondary)">
-                            {(prob * 100).toFixed(1)}%
-                          </span>
-                        </div>
-                        <div className="h-3 overflow-hidden rounded-full bg-(--color-border)">
-                          <div
-                            className={`h-full ${DR_CLASSES[idx].color} rounded-full transition-all duration-700 ease-out`}
-                            style={{ width: `${prob * 100}%` }}
-                          ></div>
-                        </div>
+                  {chartData && (
+                    <div className="space-y-4">
+                      <div className="h-64 w-full pt-2 sm:h-72">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart
+                            data={chartData}
+                            margin={{
+                              top: 20,
+                              right: 10,
+                              left: -20,
+                              bottom: 5,
+                            }}
+                          >
+                            <CartesianGrid
+                              strokeDasharray="3 3"
+                              vertical={false}
+                              stroke="var(--color-border)"
+                              opacity={1}
+                            />
+                            <XAxis
+                              dataKey="name"
+                              tick={{
+                                fill: "var(--color-text-secondary)",
+                                fontSize: 12,
+                                fontWeight: 600,
+                              }}
+                              axisLine={{ stroke: "var(--color-border)" }}
+                              tickLine={false}
+                            />
+                            <YAxis
+                              unit="%"
+                              domain={[0, 100]}
+                              tick={{
+                                fill: "var(--color-text-muted)",
+                                fontSize: 11,
+                              }}
+                              axisLine={false}
+                              tickLine={false}
+                            />
+                            <Tooltip
+                              content={<CustomTooltip />}
+                              cursor={{
+                                fill: "var(--color-surface-hover)",
+                                opacity: 0.4,
+                              }}
+                            />
+                            <Bar
+                              dataKey="percentage"
+                              radius={[8, 8, 0, 0]}
+                              barSize={100}
+                              animationDuration={500}
+                            >
+                              {chartData.map((entry, index) => (
+                                <Cell
+                                  key={`cell-${index}`}
+                                  fill={entry.color}
+                                />
+                              ))}
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
