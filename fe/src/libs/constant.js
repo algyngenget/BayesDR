@@ -50,3 +50,16 @@ export const DR_CLASSES = [
       "Tahap paling parah. Memerlukan penanganan medis segera untuk mencegah kebutaan.",
   },
 ];
+
+// List of real sample images in /public/sample_images
+export const SAMPLE_IMAGES = [
+  { label: "No DR", file: "no_dr.jpg", category: "No DR" },
+  { label: "Mild", file: "mild.jpg", category: "Mild" },
+  { label: "Moderate", file: "moderate.jpg", category: "Moderate" },
+  { label: "Severe", file: "severe2.jpg", category: "Severe" },
+  {
+    label: "Proliferative",
+    file: "proliferate.jpg",
+    category: "Proliferative",
+  },
+];

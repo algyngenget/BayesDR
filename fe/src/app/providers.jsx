@@ -14,7 +14,7 @@ export default function Providers({ children }) {
       enableSystem={false}
     >
       <OfflineBanner />
-      <main className="flex min-h-screen flex-col bg-(--color-background)">
+      <main className="flex min-h-screen w-full flex-col bg-(--color-background)">
         <Navbar />
         {children}
         <Footer />

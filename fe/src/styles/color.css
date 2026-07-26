@@ -1,67 +1,75 @@
 /* =========================================
-   LIGHT THEME (DEFAULT)
+   LIGHT THEME (DEFAULT) - Pro-Max Pristine Clinical
 ========================================= */
 :root {
-  /* Primary - Teal for medical/professional feel */
+  /* Primary - Medical Teal & Electric Cyan */
   --color-primary: #0d9488;
   --color-primary-light: #14b8a6;
   --color-primary-dark: #0f766e;
   --color-primary-bg: #ccfbf1;
+  --color-primary-glow: rgba(13, 148, 136, 0.25);
 
-  /* Secondary */
+  /* Secondary & Neutral */
   --color-secondary: #475569;
   --color-secondary-light: #64748b;
 
   /* Background & Surface */
   --color-background: #f8fafc;
   --color-surface: #ffffff;
+  --color-surface-hover: #f1f5f9;
   --color-border: #e2e8f0;
+  --color-border-glow: rgba(13, 148, 136, 0.3);
 
   /* Text */
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
 
-  /* Status Colors */
+  /* Status Colors (No DR -> Proliferative) */
   --color-status-success: #10b981;
   --color-status-warning: #f59e0b;
-  --color-status-danger: #ef4444;
-  --color-status-severe: #dc2626;
-  --color-status-critical: #991b1b;
+  --color-status-danger: #f97316;
+  --color-status-severe: #ef4444;
+  --color-status-critical: #e11d48;
 
-  /* Accent / Info */
+  /* Accent & Info */
   --color-accent: #6366f1;
   --color-accent-light: #818cf8;
-  --color-info: #3b82f6;
-  --color-info-dark: #1d4ed8;
-  --color-info-bg: #eff6ff;
+  --color-info: #0284c7;
+  --color-info-dark: #0369a1;
+  --color-info-bg: #e0f2fe;
 
-  /* Hero Gradient */
-  --color-hero-from: #0d9488;
-  --color-hero-via: #0891b2;
-  --color-hero-to: #06b6d4;
-  --color-hero-text-highlight-from: #a5f3fc;
-  --color-hero-text-highlight-to: #99f6e4;
+  /* Hero Gradient & Mesh */
+  --color-hero-from: #0f766e;
+  --color-hero-via: #0e7490;
+  --color-hero-to: #155e75;
+  --color-hero-text-highlight-from: #5eead4;
+  --color-hero-text-highlight-to: #38bdf8;
+
+  /* Card Bento */
+  --color-bento-bg: rgba(255, 255, 255, 0.85);
+  --color-bento-border: rgba(226, 232, 240, 0.8);
+  --color-bento-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 
   /* Footer */
-  --color-footer-bg: #1e293b;
-  --color-footer-text: #f1f5f9;
+  --color-footer-bg: #0f172a;
+  --color-footer-text: #f8fafc;
   --color-footer-text-muted: #94a3b8;
   --color-footer-text-heading: #e2e8f0;
   --color-footer-accent: #2dd4bf;
-  --color-footer-border: #334155;
-  --color-footer-tag-bg: #334155;
+  --color-footer-border: #1e293b;
+  --color-footer-tag-bg: #1e293b;
   --color-footer-tag-text: #cbd5e1;
 
   /* Reliability Badge */
-  --color-reliable-bg: #f0fdf4;
-  --color-reliable-border: #bbf7d0;
-  --color-reliable-text: #15803d;
-  --color-reliable-icon: #16a34a;
-  --color-unreliable-bg: #fefce8;
+  --color-reliable-bg: #ecfdf5;
+  --color-reliable-border: #a7f3d0;
+  --color-reliable-text: #047857;
+  --color-reliable-icon: #059669;
+  --color-unreliable-bg: #fffbeb;
   --color-unreliable-border: #fde68a;
-  --color-unreliable-text: #a16207;
-  --color-unreliable-icon: #ca8a04;
+  --color-unreliable-text: #b45309;
+  --color-unreliable-icon: #d97706;
 
   /* Disabled */
   --color-disabled-bg: #e2e8f0;
@@ -74,52 +82,60 @@
 }
 
 /* =========================================
-   DARK THEME
+   DARK THEME - Ultra-Sleek Cyber-Medical Obsidian
 ========================================= */
 :root[data-theme="dark"] {
   /* Primary */
   --color-primary: #14b8a6;
   --color-primary-light: #2dd4bf;
   --color-primary-dark: #0f766e;
-  --color-primary-bg: rgba(20, 184, 166, 0.12);
+  --color-primary-bg: rgba(20, 184, 166, 0.15);
+  --color-primary-glow: rgba(45, 212, 191, 0.35);
 
   /* Secondary */
   --color-secondary: #94a3b8;
   --color-secondary-light: #cbd5e1;
 
   /* Background & Surface */
-  --color-background: #0f172a;
-  --color-surface: #1e293b;
-  --color-border: #334155;
+  --color-background: #080c14;
+  --color-surface: #0f172a;
+  --color-surface-hover: #1e293b;
+  --color-border: #1e293b;
+  --color-border-glow: rgba(45, 212, 191, 0.3);
 
   /* Text */
-  --color-text-primary: #f1f5f9;
+  --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
   --color-text-muted: #64748b;
 
   /* Status Colors */
   --color-status-success: #34d399;
   --color-status-warning: #fbbf24;
-  --color-status-danger: #f87171;
-  --color-status-severe: #ef4444;
-  --color-status-critical: #dc2626;
+  --color-status-danger: #fb923c;
+  --color-status-severe: #f87171;
+  --color-status-critical: #f43f5e;
 
-  /* Accent / Info */
+  /* Accent & Info */
   --color-accent: #818cf8;
   --color-accent-light: #a5b4fc;
-  --color-info: #60a5fa;
-  --color-info-dark: #3b82f6;
-  --color-info-bg: rgba(59, 130, 246, 0.12);
+  --color-info: #38bdf8;
+  --color-info-dark: #0284c7;
+  --color-info-bg: rgba(56, 189, 248, 0.12);
 
   /* Hero Gradient */
-  --color-hero-from: #0f766e;
-  --color-hero-via: #155e75;
-  --color-hero-to: #164e63;
-  --color-hero-text-highlight-from: #67e8f9;
-  --color-hero-text-highlight-to: #5eead4;
+  --color-hero-from: #042f2e;
+  --color-hero-via: #083344;
+  --color-hero-to: #091e3a;
+  --color-hero-text-highlight-from: #2dd4bf;
+  --color-hero-text-highlight-to: #38bdf8;
+
+  /* Card Bento */
+  --color-bento-bg: rgba(15, 23, 42, 0.75);
+  --color-bento-border: rgba(30, 41, 59, 0.9);
+  --color-bento-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 
   /* Footer */
-  --color-footer-bg: #020617;
+  --color-footer-bg: #030712;
   --color-footer-text: #e2e8f0;
   --color-footer-text-muted: #64748b;
   --color-footer-text-heading: #cbd5e1;
@@ -129,21 +145,21 @@
   --color-footer-tag-text: #94a3b8;
 
   /* Reliability Badge */
-  --color-reliable-bg: rgba(16, 185, 129, 0.1);
-  --color-reliable-border: rgba(16, 185, 129, 0.25);
+  --color-reliable-bg: rgba(16, 185, 129, 0.12);
+  --color-reliable-border: rgba(16, 185, 129, 0.3);
   --color-reliable-text: #34d399;
   --color-reliable-icon: #34d399;
-  --color-unreliable-bg: rgba(245, 158, 11, 0.1);
-  --color-unreliable-border: rgba(245, 158, 11, 0.25);
+  --color-unreliable-bg: rgba(245, 158, 11, 0.12);
+  --color-unreliable-border: rgba(245, 158, 11, 0.3);
   --color-unreliable-text: #fbbf24;
   --color-unreliable-icon: #fbbf24;
 
   /* Disabled */
-  --color-disabled-bg: #334155;
-  --color-disabled-text: #64748b;
+  --color-disabled-bg: #1e293b;
+  --color-disabled-text: #475569;
 
   /* Error */
-  --color-error-bg: rgba(239, 68, 68, 0.1);
-  --color-error-border: rgba(239, 68, 68, 0.25);
+  --color-error-bg: rgba(239, 68, 68, 0.12);
+  --color-error-border: rgba(239, 68, 68, 0.3);
   --color-error-text: #f87171;
 }

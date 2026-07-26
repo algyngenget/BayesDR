@@ -1,137 +1,217 @@
 import Link from "next/link";
-import { ClassificationCard } from "@/components/ui/Card";
+import { ClassificationCard, FeatureCard } from "@/components/ui/Card";
+import {
+  ArrowRight,
+  Activity,
+  ShieldCheck,
+  Cpu,
+  Eye,
+  Sparkles,
+  Layers,
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div>
-      <section className="relative overflow-hidden bg-linear-to-br from-(--color-hero-from) via-(--color-hero-via) to-(--color-hero-to) pt-45 pb-27">
-        {/* Background decoration */}
-        <div className="pointer-events-none absolute -top-1/2 -right-[10%] h-150 w-150 rounded-full bg-white/5"></div>
-        <div className="pointer-events-none absolute -bottom-[30%] -left-[5%] h-100 w-100 rounded-full bg-white/3"></div>
+    <div className="flex min-h-screen flex-col">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden border-b border-(--color-border) bg-linear-to-b from-(--color-hero-from) via-(--color-hero-via) to-(--color-hero-to) pt-36 pb-24">
+        {/* Background Mesh Light Effect */}
+        <div className="pointer-events-none absolute -top-40 right-0 h-120 w-120 rounded-full bg-cyan-400/15 blur-3xl"></div>
+        <div className="pointer-events-none absolute bottom-0 -left-20 h-96 w-96 rounded-full bg-teal-500/15 blur-3xl"></div>
 
         <div className="relative mx-auto max-w-6xl px-6">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            {/* Left Content */}
-            <div>
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-sm">
-                <span className="h-2 w-2 rounded-full bg-(--color-status-success) shadow-lg"></span>
-                Medical Image Classification
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+            {/* Left Column Content */}
+            <div className="lg:col-span-7">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-white shadow-sm backdrop-blur-md">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                </span>
+                <span>Bayesian Convolutional Neural Network</span>
               </div>
 
-              <h1 className="mb-6 text-5xl leading-tight font-extrabold tracking-tight text-white lg:text-[52px]">
-                Deteksi{" "}
+              <h1 className="mb-6 text-4xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Deteksi Presisi{" "}
                 <span className="bg-linear-to-r from-(--color-hero-text-highlight-from) to-(--color-hero-text-highlight-to) bg-clip-text text-transparent">
                   Diabetic Retinopathy
                 </span>{" "}
-                dengan Bayesian CNN
+                dengan AI Bayesian
               </h1>
 
-              <p className="mb-9 max-w-lg text-lg leading-relaxed text-white/85">
-                Upload gambar fundus mata dan dapatkan hasil klasifikasi tingkat
-                keparahan dengan confidence score dan uncertainty estimation
-                yang akurat.
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                Upload citra fundus retina mata untuk mendapatkan estimasi
+                diagnosis tingkat keparahan beserta Confidence Score dan
+                Uncertainty Estimation berbasis Monte Carlo Dropout.
               </p>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap items-center gap-4">
                 <Link
                   href="/classify"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-white px-8 py-4 text-base font-bold text-(--color-primary-dark) no-underline shadow-xl shadow-black/15 transition-all hover:bg-(--color-primary-bg) hover:shadow-2xl"
+                  className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-2xl bg-linear-to-r from-teal-400 to-cyan-500 px-8 py-4 text-base font-extrabold text-slate-950 no-underline shadow-xl shadow-cyan-500/20 transition-all hover:scale-105 hover:shadow-2xl hover:shadow-cyan-400/30"
                 >
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Mulai Klasifikasi
+                  <span>Mulai Klasifikasi Sekarang</span>
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
+                {/* <a
+                  href="#about"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-base font-bold text-white no-underline backdrop-blur-md transition-all hover:bg-white/10"
+                >
+                  Pelajari Sistem
+                </a> */}
+              </div>
+
+              {/* Quick Feature Stats */}
+              <div className="mt-12 grid grid-cols-3 gap-4 border-t border-white/15 pt-6">
+                {/* <div>
+                  <p className="text-2xl font-extrabold text-white">25x</p>
+                  <p className="text-xs text-slate-300">
+                    MC Dropout Iterations
+                  </p>
+                </div>
+                <div>
+                  <p className="text-2xl font-extrabold text-emerald-300">
+                    5 Stage
+                  </p>
+                  <p className="text-xs text-slate-300">Skala Severity DR</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-extrabold text-cyan-300">
+                    $\sigma$ Index
+                  </p>
+                  <p className="text-xs text-slate-300">
+                    Kuantifikasi Uncertainty
+                  </p>
+                </div> */}
               </div>
             </div>
 
-            {/* Right - Eye Illustration */}
-            <div className="flex justify-center lg:justify-end">
+            {/* Right Visual Graphic */}
+            <div className="flex justify-center lg:col-span-5 lg:justify-end">
               <div className="relative">
-                <div className="flex h-80 w-80 items-center justify-center rounded-full border border-white/15 bg-white/8 lg:h-85 lg:w-85">
-                  <div className="flex h-64 w-64 items-center justify-center rounded-full bg-linear-to-br from-amber-100 via-amber-500 to-amber-900 shadow-2xl lg:h-65 lg:w-65">
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-stone-900 shadow-inner lg:h-25 lg:w-25">
-                      <div className="h-7 w-7 -translate-x-3 -translate-y-3 rounded-full bg-linear-to-br from-white/90 to-white/30"></div>
+                {/* Glowing Outer Rings */}
+                <div className="animate-float relative flex h-80 w-80 items-center justify-center rounded-full border border-white/20 bg-white/5 shadow-2xl backdrop-blur-xl sm:h-96 sm:w-96">
+                  <div className="glow-cyan flex h-64 w-64 items-center justify-center rounded-full bg-linear-to-br from-amber-400/80 via-amber-600 to-amber-950 p-3 shadow-inner sm:h-72 sm:w-72">
+                    <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-slate-950 shadow-2xl sm:h-36 sm:w-36">
+                      <div className="animate-pulse-glow h-10 w-10 rounded-full bg-linear-to-br from-cyan-300 to-white/90 shadow-lg"></div>
                     </div>
                   </div>
                 </div>
-                <div className="absolute top-2 right-7 h-4 w-4 rounded-full bg-(--color-primary-light) shadow-lg"></div>
-                <div className="absolute bottom-7 left-5 h-3 w-3 rounded-full bg-(--color-hero-to) shadow-lg"></div>
+
+                {/* Floating Micro Pills */}
+                <div className="absolute top-4 -left-4 flex items-center gap-2 rounded-xl border border-white/20 bg-slate-900/80 px-3.5 py-2 text-xs font-bold text-white shadow-xl backdrop-blur-md">
+                  <Activity className="h-4 w-4 text-emerald-400" /> High
+                  Reliability Guard
+                </div>
+                <div className="absolute right-4 -bottom-2 flex items-center gap-2 rounded-xl border border-white/20 bg-slate-900/80 px-3.5 py-2 text-xs font-bold text-white shadow-xl backdrop-blur-md">
+                  <Eye className="h-4 w-4 text-cyan-400" /> Fundus Image
+                  Analysis
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About & Severity Levels Section */}
       <section id="about" className="bg-(--color-background) py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
-            <span className="mb-5 inline-block rounded-full bg-(--color-primary-bg) px-4 py-2 text-sm font-semibold text-(--color-primary-dark)">
-              Informasi Penting
+          <div className="mx-auto mb-16 max-w-3xl text-center">
+            <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-(--color-primary)/20 bg-(--color-primary-bg) px-4 py-1.5 text-xs font-extrabold text-(--color-primary-dark)">
+              <Sparkles className="h-3.5 w-3.5" /> Skala Diagnostik Medis
             </span>
-            <h2 className="mb-5 text-4xl leading-tight font-extrabold text-(--color-text-primary)">
-              Apa itu Diabetic Retinopathy?
+            <h2 className="mb-5 text-3xl font-extrabold text-(--color-text-primary) sm:text-4xl">
+              5 Tingkat Keparahan Diabetic Retinopathy
             </h2>
-            <p className="text-lg leading-relaxed text-(--color-text-secondary)">
-              Diabetic Retinopathy adalah komplikasi diabetes yang mempengaruhi
-              mata. Kondisi ini disebabkan oleh kerusakan pada pembuluh darah di
-              retina dan dapat menyebabkan kebutaan jika tidak terdeteksi dan
-              ditangani dengan tepat.
+            <p className="text-base leading-relaxed text-(--color-text-secondary) sm:text-lg">
+              Diabetic Retinopathy (DR) terjadi akibat kerusakan pembuluh darah
+              retina oleh peningkatan kadar gula darah. Bayesian CNN
+              mengklasifikasikan kondisi fundus ke dalam 5 tingkatan medis
             </p>
           </div>
 
-          {/* Classification Levels */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+          {/* Classification Levels Bento Grid */}
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
             <ClassificationCard
               level="No DR"
               color="bg-(--color-status-success)"
               bgColor="bg-(--color-status-success)/10"
-              borderColor="border-(--color-status-success)"
-              description="Tidak ada tanda DR"
+              borderColor="border-(--color-status-success)/30"
+              description="Retina normal tanpa tanda kerusakan pembuluh darah."
               severity="0"
             />
             <ClassificationCard
               level="Mild"
               color="bg-(--color-status-warning)"
               bgColor="bg-(--color-status-warning)/10"
-              borderColor="border-(--color-status-warning)"
-              description="Tahap awal"
+              borderColor="border-(--color-status-warning)/30"
+              description="Kemunculan microaneurysms awal pada retina."
               severity="1"
             />
             <ClassificationCard
               level="Moderate"
               color="bg-(--color-status-danger)"
               bgColor="bg-(--color-status-danger)/10"
-              borderColor="border-(--color-status-danger)"
-              description="Perlu pemantauan"
+              borderColor="border-(--color-status-danger)/30"
+              description="Penyumbatan pembuluh darah tahap menengah."
               severity="2"
             />
             <ClassificationCard
               level="Severe"
               color="bg-(--color-status-severe)"
               bgColor="bg-(--color-status-severe)/10"
-              borderColor="border-(--color-status-severe)"
-              description="Perlu penanganan"
+              borderColor="border-(--color-status-severe)/30"
+              description="Penyumbatan luas pada pembuluh darah retina."
               severity="3"
             />
             <ClassificationCard
-              level="Proliferate"
+              level="Proliferative"
               color="bg-(--color-status-critical)"
               bgColor="bg-(--color-status-critical)/10"
-              borderColor="border-(--color-status-critical)"
-              description="Tahap parah"
+              borderColor="border-(--color-status-critical)/30"
+              description="Pertumbuhan pembuluh darah abnormal yang berisiko kebutaan."
               severity="4"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Section: Why Bayesian CNN */}
+      <section className="border-y border-(--color-border) bg-(--color-surface) py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto mb-16 max-w-2xl text-center">
+            <span className="mb-3 inline-block rounded-full bg-cyan-500/10 px-4 py-1 text-xs font-bold text-cyan-600 dark:text-cyan-400">
+              Inovasi Deep Learning Medis
+            </span>
+            <h2 className="text-3xl font-extrabold text-(--color-text-primary) sm:text-4xl">
+              Mengapa Menggunakan Bayesian CNN?
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <FeatureCard
+              icon={
+                <Cpu className="h-7 w-7 text-teal-600 dark:text-teal-400" />
+              }
+              title="Monte Carlo Dropout"
+              description="Menjalankan 25 iterasi pengujian acak untuk menghasilkan probabilitas stabil serta meminimalkan bias prediksi."
+              badge="Algoritma Bayesian"
+            />
+            <FeatureCard
+              icon={
+                <Layers className="h-7 w-7 text-cyan-600 dark:text-cyan-400" />
+              }
+              title="Uncertainty Quantification"
+              description="Mengukur tingkat ketidakpastian  model secara matematis sehingga praktisi medis tahu kapabilitas keyakinan model."
+              badge="Analisis Variansi"
+            />
+            <FeatureCard
+              icon={
+                <ShieldCheck className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
+              }
+              title="Reliability Check"
+              description="Otomatis memberi penanda apabila hasil diagnosis meragukan dan memerlukan peninjauan ulang oleh spesialis mata."
+              badge="Clinical Safety"
             />
           </div>
         </div>
