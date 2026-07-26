@@ -569,7 +569,7 @@ export default function ClassifyPage() {
                               dataKey="percentage"
                               radius={[8, 8, 0, 0]}
                               barSize={100}
-                              animationDuration={500}
+                              animationDuration={50}
                             >
                               {chartData.map((entry, index) => (
                                 <Cell
