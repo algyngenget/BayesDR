@@ -55,8 +55,8 @@ export const DR_CLASSES = [
 export const SAMPLE_IMAGES = [
   { label: "No DR", file: "no_dr.jpg", category: "No DR" },
   { label: "Mild", file: "mild.jpg", category: "Mild" },
-  { label: "Moderate", file: "moderate.jpg", category: "Moderate" },
-  { label: "Severe", file: "severe2.jpg", category: "Severe" },
+  { label: "Moderate", file: "moderate.png", category: "Moderate" },
+  { label: "Severe", file: "severe.jpg", category: "Severe" },
   {
     label: "Proliferative",
     file: "proliferate.jpg",

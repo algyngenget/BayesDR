@@ -37,6 +37,7 @@ instance/
 # Models
 *.h5
 *.keras
+*.pt
 
 # Environment
 .env

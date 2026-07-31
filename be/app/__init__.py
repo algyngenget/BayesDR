@@ -31,7 +31,7 @@ def create_app(config_class=None):
     def health():
         """Detailed health check with model status."""
         try:
-            from classify import load_model
+            from app.services.model_loader import load_model
 
             model = load_model()
 
@@ -39,8 +39,7 @@ def create_app(config_class=None):
                 {
                     "status": "healthy",
                     "model_loaded": model is not None,
-                    "model_input_shape": str(model.input_shape) if model else None,
-                    "model_output_shape": str(model.output_shape) if model else None,
+                    "model_type": "PyTorch BayesianDRNet (DenseNet-121)",
                 }
             )
         except Exception as e:

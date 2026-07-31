@@ -4,5 +4,7 @@ Flask-Limiter==4.1.1
 numpy==2.4.6
 pillow==12.2.0
 python-dotenv==1.2.2
-tensorflow==2.21.0
+opencv-python
+torch
+torchvision
 redis==8.0.0
