@@ -102,7 +102,9 @@ def preprocess_image(img_input, img_size=224, target_radius=300, debug_stats=Non
         img_rgb = _clahe_green_channel(img_rgb, clip_limit=2.5, tile=(8, 8))
         img_rgb = _local_average_subtract(img_rgb, sigma_fraction=30)
     except Exception as e:
-        img_rgb = original  # benar-benar kembali ke gambar asli, bukan array setengah-jadi
+        img_rgb = (
+            original  # benar-benar kembali ke gambar asli, bukan array setengah-jadi
+        )
         if debug_stats is not None:
             debug_stats["failed"] = debug_stats.get("failed", 0) + 1
             debug_stats.setdefault("errors", []).append(str(e))
@@ -112,6 +114,6 @@ def preprocess_image(img_input, img_size=224, target_radius=300, debug_stats=Non
     side = max(h, w)
     padded = np.zeros((side, side, 3), dtype=img_rgb.dtype)
     y_off, x_off = (side - h) // 2, (side - w) // 2
-    padded[y_off:y_off + h, x_off:x_off + w] = img_rgb
+    padded[y_off : y_off + h, x_off : x_off + w] = img_rgb
     out = cv2.resize(padded, (img_size, img_size), interpolation=cv2.INTER_AREA)
     return out

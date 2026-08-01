@@ -63,7 +63,9 @@ def load_model():
 
         try:
             print(f"Loading PyTorch model from: {MODEL_PATH}")
-            model = BayesianDRNet(num_classes=NUM_CLASSES, dropout_p=DROPOUT_P, pretrained=False)
+            model = BayesianDRNet(
+                num_classes=NUM_CLASSES, dropout_p=DROPOUT_P, pretrained=False
+            )
 
             ckpt = torch.load(MODEL_PATH, map_location=device, weights_only=False)
             if isinstance(ckpt, dict) and "model_state_dict" in ckpt:

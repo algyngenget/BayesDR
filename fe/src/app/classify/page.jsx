@@ -18,6 +18,8 @@ const CLASS_BAR_COLORS = [
 export default function ClassifyPage() {
   const {
     selectedImage,
+    n_iterations,
+    setIterations,
     imagePreview,
     isLoading,
     result,
@@ -78,7 +80,7 @@ export default function ClassifyPage() {
     if (file && file.type.startsWith("image/")) {
       setImage(file);
     } else {
-      setError("Format file tidak valid. Upload gambar (PNG, JPG, BMP).");
+      setError("Format file tidak valid. Upload gambar (PNG, JPG, WEBP).");
     }
   };
 
@@ -150,6 +152,8 @@ export default function ClassifyPage() {
           fileInputRef={fileInputRef}
           imagePreview={imagePreview}
           selectedImage={selectedImage}
+          n_iterations={n_iterations}
+          setIterations={setIterations}
           isLoading={isLoading}
           error={error}
           onImageSelect={handleImageSelect}

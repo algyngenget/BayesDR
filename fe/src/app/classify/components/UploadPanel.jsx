@@ -17,6 +17,8 @@ export default function UploadPanel({
   fileInputRef,
   imagePreview,
   selectedImage,
+  n_iterations,
+  setIterations,
   isLoading,
   error,
   onImageSelect,
@@ -51,8 +53,8 @@ export default function UploadPanel({
       <div className="mb-6 rounded-2xl border border-(--color-border) bg-(--color-background) p-4">
         <div className="mb-3 flex items-center justify-between">
           <span className="flex items-center gap-1.5 text-xs font-extrabold text-(--color-text-primary)">
-            <Sparkles className="h-3.5 w-3.5 text-(--color-primary)" />{" "}
-            Pilihan Gambar Sampel:
+            <Sparkles className="h-3.5 w-3.5 text-(--color-primary)" /> Pilihan
+            Gambar Sampel:
           </span>
           <span className="text-[11px] font-semibold text-(--color-text-muted)">
             Klik gambar untuk menguji
@@ -156,7 +158,7 @@ export default function UploadPanel({
           type="button"
           onClick={onClassify}
           disabled={!selectedImage || isLoading}
-          className={`flex flex-1 items-center justify-center gap-2.5 rounded-2xl px-6 py-4 text-base font-extrabold transition-colors duration-200 ${
+          className={`flex w-full flex-1 cursor-pointer items-center justify-center gap-2.5 rounded-2xl px-6 py-4 text-base font-extrabold transition-colors duration-200 ${
             !selectedImage || isLoading
               ? "cursor-not-allowed bg-(--color-disabled-bg) text-(--color-disabled-text)"
               : "bg-linear-to-r from-(--color-primary) to-(--color-primary-dark) text-white shadow-lg hover:scale-[1.01] hover:shadow-xl"
@@ -165,7 +167,7 @@ export default function UploadPanel({
           {isLoading ? (
             <>
               <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white"></div>
-              <span>Menganalisis 25 Iterasi Monte Carlo...</span>
+              <span>Menganalisis {n_iterations} Iterasi Monte Carlo...</span>
             </>
           ) : (
             <>
@@ -174,13 +176,33 @@ export default function UploadPanel({
             </>
           )}
         </button>
+        <div className="flex items-center gap-2 rounded-2xl border border-(--color-primary) bg-(--color-surface) px-4 py-3 shadow-md sm:py-0">
+          <label
+            htmlFor="n-iterations-input"
+            className="text-xs font-bold whitespace-nowrap text-(--color-text-secondary)"
+          >
+            Iterasi MC:
+          </label>
+          <input
+            id="n-iterations-input"
+            type="number"
+            min={1}
+            max={100}
+            value={n_iterations}
+            onChange={(e) => {
+              const val = Math.max(1, parseInt(e.target.value, 10) || 1);
+              setIterations(val);
+            }}
+            className="w-16 rounded-lg border border-(--color-border) bg-(--color-background) px-2 py-1 text-center text-sm font-extrabold text-(--color-text-primary) focus:border-(--color-primary) focus:outline-hidden"
+          />
+        </div>
 
         {selectedImage && (
           <button
             type="button"
             onClick={onReset}
             disabled={isLoading}
-            className={`flex items-center justify-center gap-2 rounded-2xl border border-(--color-border) bg-(--color-surface) px-6 py-4 text-base font-bold text-(--color-text-secondary) transition-colors hover:bg-(--color-surface-hover) hover:text-(--color-text-primary) ${
+            className={`flex cursor-pointer items-center justify-center gap-2 rounded-2xl border border-(--color-border) bg-(--color-surface) px-6 py-4 text-base font-bold text-(--color-text-secondary) shadow-lg transition-colors hover:bg-(--color-surface-hover) hover:text-(--color-text-primary) ${
               isLoading ? "cursor-not-allowed opacity-50" : ""
             }`}
           >

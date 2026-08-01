@@ -23,10 +23,12 @@ IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 
 # Evaluation transform (ImageNet normalization)
-eval_transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
-])
+eval_transform = transforms.Compose(
+    [
+        transforms.ToTensor(),
+        transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
+    ]
+)
 
 
 class BayesianDRNet(nn.Module):
@@ -40,7 +42,9 @@ class BayesianDRNet(nn.Module):
         weights = models.DenseNet121_Weights.IMAGENET1K_V1 if pretrained else None
         backbone = models.densenet121(weights=weights)
         in_features = backbone.classifier.in_features  # 1024 utk densenet121
-        backbone.classifier = nn.Identity()  # buang classifier bawaan, ambil fiturnya saja
+        backbone.classifier = (
+            nn.Identity()
+        )  # buang classifier bawaan, ambil fiturnya saja
         self.backbone = backbone
         self.classifier = nn.Sequential(
             nn.Dropout(p=dropout_p),
@@ -87,9 +91,13 @@ def mc_dropout_predict(model: nn.Module, x: torch.Tensor, T: int = 25):
 
     eps = 1e-12
     predictive_entropy = -(mean_probs * torch.log(mean_probs + eps)).sum(dim=1)  # (B,)
-    per_sample_entropy = -(probs_samples * torch.log(probs_samples + eps)).sum(dim=2)  # (T, B)
+    per_sample_entropy = -(probs_samples * torch.log(probs_samples + eps)).sum(
+        dim=2
+    )  # (T, B)
     aleatoric_entropy = per_sample_entropy.mean(dim=0)  # (B,)
-    epistemic_uncertainty = predictive_entropy - aleatoric_entropy  # (B,) >= 0 secara teori
+    epistemic_uncertainty = (
+        predictive_entropy - aleatoric_entropy
+    )  # (B,) >= 0 secara teori
 
     return {
         "mean_probs": mean_probs,

@@ -4,6 +4,7 @@ import api from "./api";
 
 const useClassifyStore = create((set, get) => ({
   selectedImage: null,
+  n_iterations: 25,
   imagePreview: null,
   isLoading: false,
   result: null,
@@ -44,18 +45,20 @@ const useClassifyStore = create((set, get) => ({
   },
 
   classifyImage: async () => {
-    const { selectedImage } = get();
-    if (!selectedImage) return;
+    const { selectedImage, n_iterations } = get();
+    if (!selectedImage || Number(n_iterations) < 1) return;
 
     set({ isLoading: true, error: null, result: null });
 
     const formData = new FormData();
     formData.append("image", selectedImage);
+    formData.append("n_iterations", n_iterations);
 
     try {
       console.log("📤 Sending request to backend...");
       console.log(`   File: ${selectedImage.name}`);
       console.log(`   Size: ${(selectedImage.size / 1024).toFixed(2)} KB`);
+      console.log(`   Forward Pass (n_iterations): ${n_iterations}`);
 
       const response = await api.classifyImage(formData);
 
@@ -81,6 +84,10 @@ const useClassifyStore = create((set, get) => ({
     }
   },
 
+  setIterations: (n_iter) => {
+    set({ n_iterations: n_iter });
+  },
+
   reset: () => {
     const oldPreview = get().imagePreview;
     if (oldPreview) {
@@ -88,6 +95,7 @@ const useClassifyStore = create((set, get) => ({
     }
     set({
       selectedImage: null,
+      n_iterations: 25,
       imagePreview: null,
       result: null,
       error: null,

@@ -18,6 +18,28 @@ def classify():
     Returns: JSON with prediction, confidence, uncertainty, and probabilities
     """
     try:
+        # ✅ Validate request has Forward Pass iterations
+        if "n_iterations" not in request.form:
+            return jsonify(
+                {
+                    "success": False,
+                    "error": "No forward pass iterations",
+                    "message": "Please add forward pass iterations in 'n_iterations' field",
+                }
+            ), 400
+
+        n_iterations = int(request.form["n_iterations"])
+
+        # ✅ Validate Forward Pass iterations
+        if n_iterations < 1:
+            return jsonify(
+                {
+                    "success": False,
+                    "error": "Invalid number of forward pass",
+                    "message": "Please pick a forward pass number from 1 or above",
+                }
+            ), 400
+
         # ✅ Validate request has files
         if "image" not in request.files:
             return jsonify(
@@ -104,6 +126,7 @@ def classify():
         result["success"] = True
         result["filename"] = file.filename
         result["file_size_kb"] = round(file_size / 1024, 2)
+        result["n_iterations"] = n_iterations
 
         print("\n✅ Prediction completed!")
         print(f"   Result: {result['class_name']}")
