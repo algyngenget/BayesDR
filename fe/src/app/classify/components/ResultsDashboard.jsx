@@ -10,6 +10,7 @@ import {
   BarChart3,
   BrainCircuit,
 } from "lucide-react";
+import PreprocessingSteps from "./PreprocessingSteps";
 
 const ProbabilityChart = dynamic(() => import("./ProbabilityChart"), {
   ssr: false,
@@ -88,7 +89,7 @@ export default function ResultsDashboard({
                   alt="Analyzed Fundus"
                   width={200}
                   height={200}
-                  className="h-44 w-44 rounded-xl object-cover shadow-lg"
+                  className="h-auto w-[75%] rounded-xl object-contain shadow-lg"
                 />
               </div>
             )}
@@ -207,6 +208,11 @@ export default function ResultsDashboard({
 
             <ProbabilityChart chartData={chartData} />
           </div>
+
+          {/* Preprocessing Steps Visualization */}
+          {result.preprocessing_steps && (
+            <PreprocessingSteps steps={result.preprocessing_steps} />
+          )}
         </div>
       )}
     </div>

@@ -185,4 +185,3 @@ def mc_dropout_predict(model: nn.Module, x: torch.Tensor, T: int = 25) -> dict:
         "aleatoric_entropy": aleatoric_entropy,
         "epistemic_uncertainty": epistemic_uncertainty,
     }
-

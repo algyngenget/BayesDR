@@ -110,4 +110,3 @@ def load_model():
             raise
 
     return _model
-

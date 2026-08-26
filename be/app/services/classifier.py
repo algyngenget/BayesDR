@@ -10,7 +10,10 @@ from app.services.model import (
     mc_dropout_predict,
 )
 from app.services.model_loader import get_device, load_model
-from app.services.preprocessors.preprocessor import preprocess_image
+from app.services.preprocessors.preprocessor import (
+    preprocess_image,
+    preprocess_image_with_steps,
+)
 
 
 def prepare_image_tensor(image_bytes):
@@ -41,6 +44,12 @@ def predict_with_uncertainty(image_bytes, n_iterations=25):
         device = get_device()
 
         img_tensor = prepare_image_tensor(image_bytes).to(device)
+
+        # Capture preprocessing step images for visualization
+        print("[INFO] Capturing preprocessing steps...")
+        preprocessing_steps = preprocess_image_with_steps(
+            image_bytes, img_size=IMG_SIZE
+        )
 
         print(f"[INFO] Running MC Dropout (T={n_iterations})...")
         mc_res = mc_dropout_predict(model, img_tensor, T=n_iterations)
@@ -94,6 +103,7 @@ def predict_with_uncertainty(image_bytes, n_iterations=25):
             "class_names": CLASS_NAMES,
             "n_iterations": n_iterations,
             "reliable_prediction": confidence >= 0.7 and overall_uncertainty <= 0.10,
+            "preprocessing_steps": preprocessing_steps,
         }
 
     except Exception as e:
@@ -133,4 +143,3 @@ def get_prediction_explanation(result):
         explanation += f"  {CLASS_NAMES[idx]}: {probs[idx]:.1%}\n"
 
     return explanation
-
