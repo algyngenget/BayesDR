@@ -1,11 +1,17 @@
-"""Thread-safe singleton model loader and checkpoint manager for PyTorch BayesianDRNet."""
+"""Thread-safe singleton model loader and checkpoint manager for PyTorch DenseNet121Head."""
 
 import os
 import threading
-from flask import current_app
-import torch
 
-from app.services.model import NUM_CLASSES, DROPOUT_P, BayesianDRNet
+import torch
+from flask import current_app
+
+from app.services.model import (
+    DROPOUT_RATE,
+    HIDDEN_DIM,
+    NUM_CLASSES,
+    DenseNet121Head,
+)
 
 # Module-level cache
 _model = None
@@ -23,7 +29,7 @@ def get_device():
 
 def load_model():
     """
-    Load the trained PyTorch BayesianDRNet model state dict with singleton caching.
+    Load the trained PyTorch DenseNet121Head model state dict with singleton caching.
     """
     global _model, _device
 
@@ -63,28 +69,45 @@ def load_model():
 
         try:
             print(f"Loading PyTorch model from: {MODEL_PATH}")
-            model = BayesianDRNet(
-                num_classes=NUM_CLASSES, dropout_p=DROPOUT_P, pretrained=False
+            model = DenseNet121Head(
+                num_classes=NUM_CLASSES,
+                hidden_dim=HIDDEN_DIM,
+                dropout_rate=DROPOUT_RATE,
+                use_mc_dropout=True,
+                pretrained=False,
             )
 
             ckpt = torch.load(MODEL_PATH, map_location=device, weights_only=False)
-            if isinstance(ckpt, dict) and "model_state_dict" in ckpt:
-                model.load_state_dict(ckpt["model_state_dict"])
-            elif isinstance(ckpt, dict) and "state_dict" in ckpt:
-                model.load_state_dict(ckpt["state_dict"])
-            elif isinstance(ckpt, dict):
-                model.load_state_dict(ckpt)
+            state_dict = None
+            if isinstance(ckpt, dict):
+                if "model_state_dict" in ckpt:
+                    state_dict = ckpt["model_state_dict"]
+                elif "state_dict" in ckpt:
+                    state_dict = ckpt["state_dict"]
+                else:
+                    state_dict = ckpt
             else:
                 model = ckpt
+
+            if state_dict is not None:
+                # Handle possible prefix adjustments if legacy model was saved with 'backbone.'
+                if any(k.startswith("backbone.") for k in state_dict.keys()):
+                    new_state = {}
+                    for k, v in state_dict.items():
+                        new_key = k.replace("backbone.", "")
+                        new_state[new_key] = v
+                    state_dict = new_state
+                model.load_state_dict(state_dict, strict=False)
 
             model.to(device)
             model.eval()
 
-            print("✅ PyTorch BCNN model loaded successfully!")
+            print("[SUCCESS] PyTorch BCNN model loaded successfully!")
             _model = model
 
         except Exception as e:
-            print(f"❌ Error loading model: {str(e)}")
+            print(f"[ERROR] Error loading model: {str(e)}")
             raise
 
     return _model
+

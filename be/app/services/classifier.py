@@ -1,6 +1,7 @@
 """High-level classification service for Diabetic Retinopathy prediction and uncertainty estimation."""
 
 import numpy as np
+
 from app.services.model import (
     CLASS_NAMES,
     IMG_SIZE,
@@ -9,18 +10,17 @@ from app.services.model import (
     mc_dropout_predict,
 )
 from app.services.model_loader import get_device, load_model
-from app.services.preprocessor import preprocess_image
+from app.services.preprocessors.preprocessor import preprocess_image
 
 
 def prepare_image_tensor(image_bytes):
-    """Preprocess uploaded image bytes using 7-stage retinal preprocessor
-
+    """Preprocess uploaded image bytes using BEN preprocessor
     and transform to PyTorch tensor.
     """
     try:
         processed_np = preprocess_image(image_bytes, img_size=IMG_SIZE)
         img_tensor = eval_transform(processed_np)
-        img_tensor = img_tensor.unsqueeze(0)  # Shape: (1, 3, 224, 224)
+        img_tensor = img_tensor.unsqueeze(0)
         return img_tensor
     except Exception as e:
         raise ValueError(f"Error preprocessing image: {str(e)}") from None
@@ -42,7 +42,7 @@ def predict_with_uncertainty(image_bytes, n_iterations=25):
 
         img_tensor = prepare_image_tensor(image_bytes).to(device)
 
-        print(f"🔄 Running MC Dropout (T={n_iterations})...")
+        print(f"[INFO] Running MC Dropout (T={n_iterations})...")
         mc_res = mc_dropout_predict(model, img_tensor, T=n_iterations)
 
         mean_probs = mc_res["mean_probs"][0].cpu().numpy()
@@ -69,11 +69,12 @@ def predict_with_uncertainty(image_bytes, n_iterations=25):
             else "High"
         )
 
-        print("\n📊 Prediction Results:")
+        print("\n[INFO] Prediction Results:")
         print(f"   Class: {predicted_class_name}")
         print(f"   Confidence: {confidence:.2%}")
         print(f"   Uncertainty (mean std): {overall_uncertainty:.4f}")
         print(f"   Predictive Entropy: {predictive_entropy:.4f}")
+        print(f"   Aleatoric Entropy: {aleatoric_entropy:.4f}")
         print(f"   Epistemic Uncertainty: {epistemic_uncertainty:.4f}")
 
         return {
@@ -96,7 +97,7 @@ def predict_with_uncertainty(image_bytes, n_iterations=25):
         }
 
     except Exception as e:
-        print(f"❌ Prediction error: {str(e)}")
+        print(f"[ERROR] Prediction error: {str(e)}")
         raise
 
 
@@ -132,3 +133,4 @@ def get_prediction_explanation(result):
         explanation += f"  {CLASS_NAMES[idx]}: {probs[idx]:.1%}\n"
 
     return explanation
+

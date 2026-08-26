@@ -94,15 +94,15 @@ def classify():
             ), 400
 
         print(f"\n{'=' * 70}")
-        print(f"📥 Received image: {file.filename}")
+        print(f"[INFO] Received image: {file.filename}")
         print(f"   Size: {file_size / 1024:.2f} KB")
         print(f"   Type: {file_ext}")
         print(f"{'=' * 70}")
 
-        # ✅ Read image bytes
+        # Read image bytes
         image_bytes = file.read()
 
-        # ✅ Validate image bytes
+        # Validate image bytes
         if len(image_bytes) == 0:
             return jsonify(
                 {
@@ -112,23 +112,23 @@ def classify():
                 }
             ), 400
 
-        print(f"✅ Image loaded: {len(image_bytes)} bytes")
+        print(f"[INFO] Image loaded: {len(image_bytes)} bytes")
 
-        # ✅ Get prediction with uncertainty (25 MC iterations)
-        print("🔄 Starting prediction...")
-        result = predict_with_uncertainty(image_bytes, n_iterations=25)
+        # Get prediction with uncertainty
+        print(f"[INFO] Starting prediction with {n_iterations} iterations...")
+        result = predict_with_uncertainty(image_bytes, n_iterations=n_iterations)
 
-        # ✅ Add explanation
+        # Add explanation
         explanation = get_prediction_explanation(result)
         result["explanation"] = explanation
 
-        # ✅ Add metadata
+        # Add metadata
         result["success"] = True
         result["filename"] = file.filename
         result["file_size_kb"] = round(file_size / 1024, 2)
         result["n_iterations"] = n_iterations
 
-        print("\n✅ Prediction completed!")
+        print("\n[SUCCESS] Prediction completed!")
         print(f"   Result: {result['class_name']}")
         print(f"   Confidence: {result['confidence']:.2%}")
         print(f"   Uncertainty: {result['uncertainty']:.4f}")
@@ -137,9 +137,9 @@ def classify():
         return jsonify(result), 200
 
     except ValueError as e:
-        # ❌ Preprocessing or validation errors
+        # Preprocessing or validation errors
         error_msg = str(e)
-        print(f"\n❌ ValueError: {error_msg}")
+        print(f"\n[ERROR] ValueError: {error_msg}")
 
         return jsonify(
             {
@@ -151,11 +151,11 @@ def classify():
         ), 400
 
     except Exception as e:
-        # ❌ Unexpected errors
+        # Unexpected errors
         error_msg = str(e)
         error_trace = traceback.format_exc()
 
-        print("\n❌ PREDICTION ERROR:")
+        print("\n[ERROR] PREDICTION ERROR:")
         print(error_trace)
 
         return jsonify(
