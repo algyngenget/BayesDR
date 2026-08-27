@@ -176,7 +176,9 @@ export default function UploadPanel({
             </>
           )}
         </button>
-        <div className="flex items-center gap-2 rounded-2xl border border-(--color-primary) bg-(--color-surface) px-4 py-3 shadow-md sm:py-0">
+        <div
+          className={`flex items-center gap-2 rounded-2xl border border-(--color-primary) bg-(--color-surface) px-4 py-3 shadow-lg sm:py-0 ${isLoading ? "cursor-default border-(--color-surface) opacity-50 hover:bg-(--color-surface) hover:text-(--color-text-secondary)" : ""}`}
+        >
           <label
             htmlFor="n-iterations-input"
             className="text-xs font-bold whitespace-nowrap text-(--color-text-secondary)"
@@ -189,6 +191,7 @@ export default function UploadPanel({
             min={1}
             max={100}
             value={n_iterations}
+            disabled={isLoading}
             onChange={(e) => {
               const val = Math.max(1, parseInt(e.target.value, 10) || 1);
               setIterations(val);
@@ -203,7 +206,9 @@ export default function UploadPanel({
             onClick={onReset}
             disabled={isLoading}
             className={`flex cursor-pointer items-center justify-center gap-2 rounded-2xl border border-(--color-border) bg-(--color-surface) px-6 py-4 text-base font-bold text-(--color-text-secondary) shadow-lg transition-colors hover:bg-(--color-surface-hover) hover:text-(--color-text-primary) ${
-              isLoading ? "cursor-not-allowed opacity-50" : ""
+              isLoading
+                ? "cursor-default opacity-50 hover:bg-(--color-surface) hover:text-(--color-text-secondary)"
+                : ""
             }`}
           >
             <RotateCcw className="h-5 w-5" />
