@@ -32,11 +32,11 @@ export default function Home() {
               </div>
 
               <h1 className="mb-6 text-4xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Deteksi Presisi{" "}
+                Deteksi{" "}
                 <span className="bg-linear-to-r from-(--color-hero-text-highlight-from) to-(--color-hero-text-highlight-to) bg-clip-text text-transparent">
                   Diabetic Retinopathy
                 </span>{" "}
-                dengan AI Bayesian
+                dengan Bayesian CNN
               </h1>
 
               <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
@@ -194,7 +194,7 @@ export default function Home() {
                 <Cpu className="h-7 w-7 text-teal-600 dark:text-teal-400" />
               }
               title="Monte Carlo Dropout"
-              description="Menjalankan 25 iterasi pengujian acak untuk menghasilkan probabilitas stabil serta meminimalkan bias prediksi."
+              description="Menjalankan iterasi pengujian acak untuk menghasilkan probabilitas stabil serta meminimalkan bias prediksi."
               badge="Algoritma Bayesian"
             />
             <FeatureCard
