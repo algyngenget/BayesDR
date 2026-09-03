@@ -14,6 +14,7 @@ if __name__ == "__main__":
     port = app.config.get("PORT", 5000)
     host = app.config.get("HOST", "0.0.0.0")
     debug = app.config.get("DEBUG", True)
+    model_name = app.config.get("MODEL_NAME", "")
 
     cors_origins = app.config.get("CORS_ORIGINS", ["*"])
     frontend_url = app.config.get("FRONTEND_URL", "http://localhost:3000")
@@ -33,7 +34,8 @@ if __name__ == "__main__":
         f"🔗 Server URL   : {server_url}\n"
         f"🔗 API URL      : {server_url}/api\n"
         f"🔌 CORS Origins : {cors_str}\n"
-        f"🔗 Frontend URL : {frontend_url}\n\n"
+        f"🔗 Frontend URL : {frontend_url}\n"
+        f"🔗 Model Name   : {model_name}\n\n"
         f"{'=' * 55}\n"
     )
 
